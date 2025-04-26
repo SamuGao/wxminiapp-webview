@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>文件选择</title>
+</head>
+<body>
+  <input type="file" id="fileInput" multiple>
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+      const files = e.target.files;
+      if (files.length === 0) return;
+
+      // 读取文件信息（此处仅传递元数据，不处理内容）
+      const fileData = {
+        name: files[0].name,
+        size: files[0].size,
+        type: files[0].type
+      };
+
+      // 发送数据到小程序
+      if (window.wx && wx.miniProgram) {
+        wx.miniProgram.postMessage({ data: fileData });
+      }
+    });
+  </script>
+</body>
+</html>
